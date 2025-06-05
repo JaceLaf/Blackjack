@@ -1,4 +1,10 @@
 import json
+import argparse
+
+# Reads in output file name from command line
+parser = argparse.ArgumentParser()
+parser.add_argument('output', help='JSON file to output the starter deck into')
+args = parser.parse_args()
 
 # Creates the ASCII graphic for each card
 card_graphic_list = [
@@ -62,7 +68,7 @@ card_graphic_list = [
 
 # Creates the list of values and cards
 suits = ["spades", "clubs", "hearts", "diamonds"]
-values = [[1, 11], 2, 3, 4, 5, 6, 7, 8, 9, 10]
+values = [[1, 11], 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 # Builds list of card dictionaries
 cards = []
@@ -78,5 +84,6 @@ for suit in suits:
         cards.append(card_dict)
         index += 1
 
-with open("cards.json", "w", encoding="utf-8") as f:
+# Writes the cards into an output file
+with open(args.output, "w", encoding="utf-8") as f:
     json.dump(cards, f, indent=4, ensure_ascii=False)
