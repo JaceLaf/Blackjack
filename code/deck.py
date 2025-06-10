@@ -111,6 +111,7 @@ class Deck:
     def deal(self, num_players = 1, num_cards = 1):
         cards_dealt = [[] for i in range(num_players)]
 
+        # Draws a card in the order of players for each set
         for i in range(num_cards):
             for j in range(num_players):
                 card = self.draw()
