@@ -9,4 +9,4 @@ class Card:
 
     # Prints out a card
     def __str__(self):
-        print(self.graphic)
+        return self.graphic + self.name.title()

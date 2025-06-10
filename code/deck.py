@@ -83,18 +83,37 @@ class Deck:
         # Creates a preserved copy of the original deck
         self.original_deck = self.deck
 
+        # Creates a list of the cards that have been discarded
+        self.cards_out = []
+        self.discards = []
+
     # Shuffles the deck
     def shuffle(self):
         random.shuffle(self.deck)
 
+    # Shuffles discards
+    def shuffle_discards(self):
+        random.shuffle(self.discards)
+
     # Draws a card from the top
     def draw(self):
-        top_card = self.deck.pop(0)
-
         # Checks if there are no cards left and reshuffles the discards
         if not self.deck:
-            self.deck = self.original_deck.shuffle()
-
-            # TODO: create variable for cards on the table and exclude them from new deck
+            if not self.discards:
+                raise IndexError("No cards in discard pile or deck.")
+            self.deck = self.shuffle_discards()
+        
+        top_card = self.deck.pop(0)
 
         return top_card
+    
+    # Deals out cards given a number of cards per player and number of players
+    def deal(self, num_players = 1, num_cards = 1):
+        cards_dealt = [[] for i in range(num_players)]
+
+        for i in range(num_cards):
+            for j in range(num_players):
+                card = self.draw()
+                cards_dealt[j].append(card)
+        
+        return cards_dealt
